@@ -30,7 +30,7 @@ module.exports = {
         venv: "env",  // Use Pinokio's virtual env (handles Python if needed)
         path: "app",  // Relative to the app folder (my-yt)
         message: [
-          "pip install yt-dlp"  // Install yt-dlp for video handling
+          "uv pip install yt-dlp"  // Install yt-dlp for video handling (using uv per Pinokio best practices)
         ]
       }
     },

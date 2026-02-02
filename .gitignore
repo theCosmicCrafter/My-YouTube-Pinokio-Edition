@@ -1,2 +1,16 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Pinokio generated folders (cloned repos, virtual envs, cache)
+app/
+env/
+cache/
+logs/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Environment files with secrets
+.env
+*.env.local

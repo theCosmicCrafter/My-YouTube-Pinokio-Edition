@@ -18,7 +18,7 @@ module.exports = {
         ],
         on: [{
           // Wait for the server to log a URL (e.g., http://localhost:3000)
-          "event": "/http:\\/\\/\\S+/",
+          "event": "/(http:\\/\\/\\S+)/",
           "done": true  // Proceed once matched, keep shell alive
         }]
       }
@@ -27,7 +27,8 @@ module.exports = {
       method: "local.set",
       params: {
         // Set the app URL for Pinokio's "Open WebUI" tab
-        url: "{{input.event[0]}}"
+        // input.event[1] captures the URL from the regex parentheses group
+        url: "{{input.event[1]}}"
       }
     }
   ]

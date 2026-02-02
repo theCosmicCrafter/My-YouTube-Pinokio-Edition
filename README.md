@@ -4,17 +4,20 @@ A clean and minimal YouTube frontend, without all the ads and whistles. This is 
 
 ## Features
 - **Ad-Free Experience**: Subscribe to channels, view chronological feeds, search videos, and download for offline playback.
-- **AI Summarization**: Automatically summarize video content using Ollama (local LLM) or compatible remote APIs like OpenAI.
+- **AI Summarization**: Automatically summarize video content using Ollama (local LLM) or compatible remote APIs like OpenAI, Anthropic, or Google Gemini.
 - **Pinokio Integration**: One-click install/start in Pinokio, with dynamic menus for model downloads and Ollama handling.
 - **Local-First**: Uses your running Ollama instance for summarization—no separate terminal needed if Ollama is already backgrounded.
 - **Customizable**: Easily switch models or use API keys via `.env`.
+- **Dark Mode**: Toggle between light, dark, or system-default theme.
+- **Playback Speed Control**: Set default playback speed from 0.5x to 2x.
+- **Multi-Model Support**: Download and use DeepSeek, Llama, Qwen, Mistral, Gemma, or Phi models.
 
 ## Installation
 This app is designed for [Pinokio Computer](https://pinokio.computer), a 1-click launcher for open-source AI tools.
 
 1. **Install Pinokio**: Download and set up Pinokio from [pinokio.computer](https://pinokio.computer).
 2. **Add the App**:
-   - Go to > Discover > Community scripts > look for My-YouTube (Pinikio Edition) and click install.
+   - Go to > Discover > Community scripts > look for My-YouTube (Pinokio Edition) and click install.
    - Or manually: Clone this repo into your Pinokio `api` folder (e.g., `~/.pinokio/api/my-yt-pinokio`), then restart Pinokio.
 3. **Prerequisites**:
    - **Ollama**: If not installed, Pinokio will prompt you during setup. Download from [ollama.com/download](https://ollama.com/download) and run it in the background (e.g., via `ollama serve` or system tray).
@@ -26,12 +29,25 @@ The app uses a `.env` file (included) for AI settings. Edit it in your app folde
 
 ### Changing the AI Model
 - Default: `AI_MODEL=deepseek-r1:14b` (local Ollama).
-- To change: Open `.env` and update `AI_MODEL` to your preferred model (e.g., `llama3`).
+- To change: Open `.env` and update `AI_MODEL` to your preferred model (e.g., `llama3.1:8b`).
 - Restart the app in Pinokio.
-- Download models via the Pinokio menu ("Download Models" > select from list like deepseek options).
+- Download models via the Pinokio menu ("Download Models" > select from list).
+- Available model families: **DeepSeek**, **Llama**, **Qwen**, **Mistral**, **Gemma**, **Phi**
 - Note: Summarization auto-uses the model if Ollama is running in the background. No separate terminal needed—the app connects directly.
 
-### Using Remote APIs (Optional)
+### Using Google Gemini (Free Tier)
+For free AI summarization using Google's Gemini API:
+- Get your free API key at: https://aistudio.google.com/apikey
+- Edit `.env`:
+  ```
+  AI_HOST=https://generativelanguage.googleapis.com
+  AI_MODEL=gemini-1.5-flash
+  AI_APIKEY=your-gemini-api-key-here
+  AI_TEMPERATURE=0
+  ```
+- Restart the app. Free tier includes generous rate limits for personal use.
+
+### Using OpenAI/Anthropic (Optional)
 If you prefer OpenAI/Anthropic over local Ollama:
 - Edit `.env`:
   ```
@@ -48,6 +64,8 @@ If you prefer OpenAI/Anthropic over local Ollama:
 - **Summarize Videos**: View a video > click "Summarize" (uses your configured model).
 - **Download/Stream**: Built-in via yt-dlp; works offline for saved videos.
 - **Add Channels**: Click on settings > copy @YoutubeChannelName > click Add Channel.
+- **Dark Mode**: Settings > Dark Mode dropdown > choose Light/Dark/System.
+- **Playback Speed**: Settings > Default Playback Speed > select from 0.5x to 2x.
 - **Pinokio Menu**: Download models, view terminal logs, or start Ollama if needed.
 - **GPU Acceleration**: If you have NVIDIA, edit code for FFmpeg GPU flags (see original repo docs).
 
@@ -55,7 +73,28 @@ If you prefer OpenAI/Anthropic over local Ollama:
 - **Ollama Not Detected**: Ensure it's running (`ollama serve`). Use menu > "Start Ollama Interactive" to launch with a model.
 - **Model Not Found**: Download via menu first.
 - **Errors**: Check Pinokio terminal logs. For help, open an issue here.
-- **Updates**: Pull from this repo 
+- **Updates**: Use the "Update" button in Pinokio to pull the latest changes.
+- **Log out**: There is no logout button. To log out, clear your browser cache/cookies or simply restart the browser.
+
+## Streaming Safely & Security
+Pinokio runs applications locally, meaning they are as secure as your home network. By default, anyone with access to your Wi-Fi/LAN can access the app if they know the IP address.
+
+**To secure your stream:**
+1. Open the `.env` file in the `app` folder.
+2. Add a password:
+   ```bash
+   AUTH_PASSWORD=your_secret_password
+   ```
+3. Restart the app.
+4. Now, accessing the app from any device (including localhost) will require a username (`admin` or anything you like) and the password you set.
+
+**To stream to other devices:**
+1. Start the app.
+2. Check the "Terminal" tab in Pinokio.
+3. Look for the "Network" URL (e.g., `http://192.168.1.5:3000`).
+4. Type that URL into the browser on your phone, tablet, or TV.
+5. Enter the password if you configured it.
+
 
 ## Credits
 - Forked from [christian-fei/my-yt](https://github.com/christian-fei/my-yt) (original clean YouTube frontend).
@@ -67,6 +106,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-green?style=flat-square&logo=github&logoColor=white)](https://github.com/TheAwaken1/my-yt-pinokio)
-
-
-

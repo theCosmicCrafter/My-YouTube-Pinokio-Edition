@@ -82,7 +82,7 @@ TORCH_HOME=./cache/TORCH_HOME
 # Set this variable to true to share the app on the local network.
 #
 ##########################################################################
-PINOKIO_SHARE_LOCAL=false
+PINOKIO_SHARE_LOCAL=true
 
 ##########################################################################
 #
@@ -92,4 +92,4 @@ PINOKIO_SHARE_LOCAL=false
 # for local sharing.
 #
 ##########################################################################
-PINOKIO_SHARE_LOCAL_PORT=
+PINOKIO_SHARE_LOCAL_PORT=5031
